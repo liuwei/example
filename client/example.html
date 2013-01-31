@@ -1,0 +1,119 @@
+<head>
+    <title>Mini-Pages Example</title>
+    <script type="text/javascript" src="filepicker.js"></script>
+    <script type="text/javascript">
+        filepicker.setKey('ANZdON1qlTNexuzjVcBwRz');
+    </script>
+</head>
+
+<body>
+</body>
+
+<template name="layout">
+  {{> navbar}}
+  <div class="container">
+    {{{yield}}}
+  </div>
+</template>
+
+<template name="navbar">
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="{{rootPath}}">MiniCo</a>
+      <ul class="nav">
+        <li class="{{navClassFor 'posts'}}">
+          <a href="{{postIndexPath}}">Posts</a>
+        </li>
+        <li class="{{navClassFor 'secret'}}">
+          <a href="{{secretPath}}">Secret</a> 
+        </li>
+        <li>
+          <a href="/boguspath">Bogus Path</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<template name="postIndex">
+    <h1>Post Index</h1>
+
+  <!--<a href="{{postNewPath}}" class="btn">New Post</a>-->
+    <input type="button" id="picker" value="Load new model"/>
+    <table class="table">
+        <thead>
+        <th>All Model</th>
+        <th></th>
+        </thead>
+        <tbody>
+        {{#each posts}}
+        {{> postRow}}
+        {{/each}}
+        </tbody>
+    </table>
+</template>
+
+<template name="postRow">
+  <tr>
+    <td>{{name}}</td>
+    <td><img src="{{picture}}" /></td>
+    <td>
+      <ul class="links">
+        <li><a href="{{postShowPath}}">Show</a></li>
+        <li><a href="{{postEditPath}}">Edit</a></li>
+      </ul>
+    </td>
+  </tr>
+</template>
+
+<template name="postShow">
+  {{#with post}}
+    <h1>Showing {{name}}</h1>
+    <div class="showplace"></div>
+    <ul class="links">
+      <li>
+        <a href="{{postIndexPath}}">Back to All</a>
+      </li>
+      <li>
+        <a href="{{postEditPath}}">Edit Post</a>
+      </li>
+    </ul>
+  {{/with}}
+</template>
+
+<template name="postForm">
+  <h1>Post Form</h1>
+  {{#with post}}
+    <ul class="links">
+      <li>
+        <a href="{{postIndexPath}}">Back to All</a>
+      </li>
+      <li>
+        <a href="{{postShowPath}}">Show Post</a>
+      </li>
+    </ul>
+  {{/with}}
+</template>
+
+<template name="secret">
+  <div class="alert alert-success alert-block">
+    <h1>You've unlocked the secret!</h1>
+  </div>
+</template>
+
+<template name="login">
+  <div class="alert alert-error alert-block">
+    <h1>401 - Login</h1>
+    <h4>You must log in to continue, or you can try Session.set("authorized", true); and try the link again.</h4>
+  </div>
+</template>
+
+<template name="404">
+  <div class="alert alert-error alert-block">
+    <h1>404 - Oh Snap :-(</h1>
+    <h4>We couldn't find the page you were looking for</h4>
+    <div>
+      <a href="{{rootPath}}">Take me home</a>
+    </div>
+  </div>
+</template>
