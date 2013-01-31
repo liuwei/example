@@ -1,6 +1,6 @@
 <head>
     <title>Mini-Pages Example</title>
-    <script type="text/javascript" src="filepicker.js"></script>
+    <script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
     <script type="text/javascript">
         filepicker.setKey('ANZdON1qlTNexuzjVcBwRz');
     </script>
@@ -11,9 +11,9 @@
 
 <template name="layout">
   {{> navbar}}
-  <div class="container">
+  <!--<div class="container">-->
     {{{yield}}}
-  </div>
+  <!--</div>-->
 </template>
 
 <template name="navbar">
@@ -66,20 +66,7 @@
   </tr>
 </template>
 
-<template name="postShow">
-  {{#with post}}
-    <h1>Showing {{name}}</h1>
-    <div class="showplace"></div>
-    <ul class="links">
-      <li>
-        <a href="{{postIndexPath}}">Back to All</a>
-      </li>
-      <li>
-        <a href="{{postEditPath}}">Edit Post</a>
-      </li>
-    </ul>
-  {{/with}}
-</template>
+
 
 <template name="postForm">
   <h1>Post Form</h1>
@@ -95,18 +82,9 @@
   {{/with}}
 </template>
 
-<template name="secret">
-  <div class="alert alert-success alert-block">
-    <h1>You've unlocked the secret!</h1>
-  </div>
-</template>
 
-<template name="login">
-  <div class="alert alert-error alert-block">
-    <h1>401 - Login</h1>
-    <h4>You must log in to continue, or you can try Session.set("authorized", true); and try the link again.</h4>
-  </div>
-</template>
+
+
 
 <template name="404">
   <div class="alert alert-error alert-block">
