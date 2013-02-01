@@ -7,7 +7,7 @@ function setPost (context) {
 }
 
 function newPost (context) {
-    Session.set("post", {});
+//    Session.set("post", {});
 }
 
 function authorize (context) {
@@ -18,9 +18,9 @@ function authorize (context) {
 }
 
 Meteor.pages({
-    '/': { to: 'postIndex', as: 'root', nav: 'posts' },
+    '/': { to: 'page', as: 'root', nav: 'posts' },
     '/posts': { to: 'postIndex', nav: 'posts' },
-    '/posts/new': { to: 'postShow', nav: 'posts', as: 'postNew', before: [newPost] },
+    '/posts/new': { to: 'postForm', nav: 'posts', as: 'postNew', before: [newPost] },
     '/posts/:_id': { to: 'postShow', nav: 'posts', before: [setPost] },
     '/posts/:_id/edit': { to: 'postForm', nav: 'posts', as: 'postEdit', before: [setPost] },
     '/secret': { to: 'secret', nav: 'secret', before: authorize },
@@ -46,13 +46,15 @@ Template.postIndex.events({
     'click #picker':function(){
         filepicker.pick(
             function(FPFile){
-                var newModel = Posts.insert({
+                var newPost = Posts.insert({
                     "name" : FPFile.filename,
                     "type": "ascii",
                     "scale": "",
                     "url" :  FPFile.url
                 });
+                Session.set("post", newPost);
             }
+
         );
     }
 });
