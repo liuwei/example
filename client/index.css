@@ -1,0 +1,97 @@
+/* CSS declarations go here */
+
+body {
+
+    background: radial-gradient(at center center , transparent 60%, rgba(0, 0, 0, 0.05)) repeat scroll 0 0%, url("/grid.png") repeat scroll 0 0 transparent;
+    color: #333333;
+}
+.introduce{
+    margin-top: 100px;
+}
+.site-slogan{
+    text-align: center;
+}
+.site-slogan h1{
+    padding-top: 38px;
+    text-align: center;
+    color: white;
+    font-family: "Museo500";
+    font-size: 38px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.46);
+}
+
+.publish{
+    margin-top: 300px;
+}
+
+
+#post-list .post {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid #ccc;
+}
+
+#post-list .post .display {
+    margin-left: 30px;
+    height: 100%;
+    width: auto;
+    float: left;
+    padding-top: 18px;
+    line-height: 1;
+}
+
+#post-list .post .post-text {
+    float: left;
+    margin-left: 10px;
+    font-size: 100%;
+}
+
+#post-list .post .post-img {
+    float: left;
+    margin-left: 10px;
+    font-size: 100%;
+}
+
+#lists .selected {
+    padding: 2px 6px;
+    background: #9be;
+    font-weight: bold;
+}
+
+#lists .list-name {
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+}
+
+.landscape{
+    background-color: #1CAAD9;
+    border-bottom: 1px solid #6C6C6C;
+    box-shadow: 0 0 100px 0 rgba(0, 0, 0, 0.3) inset;
+    margin-top: 40px;
+    width: 100%;
+}
+.display-region{
+    margin-top: 30px;
+}
+#canvas-element-id {
+    margin: 10px;
+    margin-top: 70px;
+    background-color: #282828;
+    border: 6px solid white;
+    height: 390px;
+    position: absolute;
+    top: 100px;
+    width: 675px;
+    z-index: 9;
+}
+
+.footer{
+    height: 80px;
+    text-align: center;
+}
+
+#signin-li{
+    margin-top: 10px;
+}
