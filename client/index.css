@@ -4,6 +4,7 @@ body {
 
     background: radial-gradient(at center center , transparent 60%, rgba(0, 0, 0, 0.05)) repeat scroll 0 0%, url("/grid.png") repeat scroll 0 0 transparent;
     color: #333333;
+
 }
 .introduce{
     margin-top: 100px;

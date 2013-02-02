@@ -3,6 +3,7 @@ Template.postShow.rendered = function () {
 //    self.node = self.find(".showplace");
 //    container = self.node;
     container = document.createElement( 'div' );
+    container.id = "postShow";
     document.body.appendChild( container );
 
     renderer = new THREE.WebGLRenderer( {
@@ -13,14 +14,8 @@ Template.postShow.rendered = function () {
 
 //    renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
-//    renderer.setClearColor( result.bgColor, result.bgAlpha );
     renderer.domElement.style.position = "relative";
     container.appendChild( renderer.domElement );
-
-    renderer.gammaInput = true;
-    renderer.gammaOutput = true;
-    renderer.physicallyBasedShading = true;
-
 
     loader = new THREE.SceneLoader();
 
@@ -53,10 +48,10 @@ Template.postShow.rendered = function () {
     };
     json1.objects["camera1"] = {
         "type":"PerspectiveCamera",
-        "fov":50,
-        "aspect":1.33333,
+        "fov":70,
+        "aspect":window.innerWidth / window.innerHeight,
         "near":1,
-        "far":1000,
+        "far":1100,
         "position":[ 0, 0, 100 ],
         "target":[ 0, 0, 0 ]
     };
@@ -85,7 +80,7 @@ Template.postShow.rendered = function () {
 
     json1.defaults = {
         "bgcolor":[255, 255, 255],
-        "bgalpha":1,
+        "bgalpha":0.5,
         "camera":"camera1"
     };
 
@@ -94,12 +89,14 @@ Template.postShow.rendered = function () {
     window.addEventListener( 'resize', onWindowResize, false );
 };
 
+var fov = 70;
+
 var SCREEN_WIDTH = window.innerWidth;
 var SCREEN_HEIGHT = window.innerHeight;
 
 var container;
 
-var camera, scene, loaded;
+var camera, cubeCamera, scene, loaded;
 var renderer;
 
 var windowHalfX = window.innerWidth / 2;
@@ -113,10 +110,10 @@ var clock = new THREE.Clock();
 function callbackFinished( result ) {
 //    $( "message" ).style.display = "none";
 //    $( "progressbar" ).style.display = "none";
-
+//    var texture = THREE.ImageUtils.loadTexture('room.jpg', new THREE.UVMapping());
 
     camera = result.currentCamera;
-    camera.aspect = container.clientWidth/container.clientHeight;
+//    camera.aspect = container.clientWidth/container.clientHeight;
     camera.updateProjectionMatrix();
 
     scene = result.scene;
@@ -126,14 +123,13 @@ function callbackFinished( result ) {
     opts.callback = function(url) {
         var selectedObject = Session.get("post");
         Posts.update({"_id" : selectedObject._id}, {"$set" : {"picture" : url}});
-//        var result = document.getElementById("read-img");
-//        result.src = Geometries.findOne({"_id" : selectedObject}).picture;
     };
+    opts.element = document.getElementById("postShow");
 
     THREEx.Screenshot.bindKey(renderer, opts);
+
     if( THREEx.FullScreen.available() ) {
-        THREEx.FullScreen.bindKey();
-//        document.getElementById('inlineDoc').innerHTML	+= "- <i>f</i> for fullscreen";
+        THREEx.FullScreen.bindKey(opts);
     }
 
     scene.traverse( function ( object ) {
@@ -145,7 +141,7 @@ function callbackFinished( result ) {
 
             if (object.geometry.boundingSphere) {
                 var radius = object.geometry.boundingSphere.radius;
-                Posts.update({"name" : object.name}, {"$set" :{"scale" : 50/radius}});
+                Posts.update({"name" : object.name}, {"$set" :{"scale" : 60/radius}});
             }
         }
 
@@ -194,7 +190,10 @@ function callbackFinished( result ) {
 
     controls.keys = [ 65, 83, 68 ];
 
-
+    mesh = new THREE.Mesh( new THREE.SphereGeometry( 500, 60, 40 ), new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( '/room.jpg' ) } ) );
+    mesh.scale.x = -1;
+    mesh.name = "Room";
+    scene.add( mesh );
 
     animate();
 }
